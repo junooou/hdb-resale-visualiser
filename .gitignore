@@ -1,0 +1,17 @@
+# Python
+Backend/venv/
+Backend/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+
+# Node
+Frontend/node_modules/
+Frontend/.env
+Frontend/build/
+
+# OS / IDE / logs
+.DS_Store
+*.log
