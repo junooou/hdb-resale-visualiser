@@ -1,120 +1,185 @@
 # HDB Resale Price Visualiser
 
-This is a full-stack web application that allows users to explore historical HDB resale price trends across different towns in Singapore and view predicted price trends for the year 2029. The application includes an AI-generated buying suggestion based on forecasted trends.
+This is a full-stack web application developed as part of NTU’s SC2006 Software Engineering module. It allows users to explore historical HDB resale prices and receive predicted price insights for 2029 using machine learning.
 
-This project was developed as part of NTU's SC2006 Software Engineering module.
+The application is designed to make government housing data more accessible through interactive graphs, maps, and AI-generated insights. It supports guest access as well as secure login for users who wish to save their comparison history.
+
+[Watch demo video here](https://youtu.be/6dS3is9w9no)
+
+---
 
 ## Features
 
-- Users can select an HDB town from a dropdown list.
-- The application displays a line chart with:
-  - Historical resale price trends from 2000 to 2023.
-  - A projected trend for 2029 based on logistic regression.
-- Below the chart, a textual summary provides:
-  - Predicted average resale price in 2029.
-  - A data-driven buy or wait suggestion.
+- **Historical Price Trends:** Line graphs showing resale prices from 2015–2023.
+- **AI Forecasting:** Projected 2029 resale prices based on linear regression.
+- **Interactive Search:** Users can search by district or year using natural language input.
+- **Comparison Tool:** Compare prices across up to 5 districts over a selected time range.
+- **Interactive Map:** Select districts directly via a Google Map interface.
+- **Recent Transactions:** View and sort recent transactions by town, room type, or year.
+- **User Authentication:** Login, sign up, reset password, and guest access supported.
+- **LocalStorage Support:** Recently viewed comparisons saved locally on the browser.
+- **Filter Options:** Filter listings by flat type, district, resale year, and room type.
+
+---
+
+## Demo Video
+
+Watch our 3-minute walkthrough here:  
+[https://your-youtube-demo-link.com](https://your-youtube-demo-link.com)
+
+---
 
 ## Setup Instructions
 
 ### Frontend
 
-Navigate to the `frontend` directory and run:
-
 ```bash
+cd frontend
 npm install
 npm start
 ```
 
-The frontend will be available at http://localhost:3000.
+Runs at: http://localhost:3000
 
 ### Backend
 
-Navigate to the `backend` directory and run:
-
 ```bash
+cd backend
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate    # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
 ```
 
-The backend will be available at http://localhost:5000.
+Runs at: http://localhost:5000
+
+---
 
 ## API Overview
 
-### Endpoints
+| Endpoint                              | Method | Description                                |
+|---------------------------------------|--------|--------------------------------------------|
+| `/api/districts`                      | GET    | Returns all HDB districts                  |
+| `/api/resale/resale_analysis/`        | GET    | Returns historical data for selected town |
+| `/api/resale/predictions/`            | GET    | Returns ML prediction for a town/year     |
 
-| Endpoint                    | Method | Description                         |
-|-----------------------------|--------|-------------------------------------|
-| `/api/districts`            | GET    | Returns a list of all HDB towns     |
-| `/api/prices/<district>`    | GET    | Returns historical price data       |
-| `/api/predict/<district>`   | GET    | Returns predicted price and insight |
+Backend endpoints return JSON. Frontend queries them dynamically.
 
-All endpoints return JSON responses.
+---
 
 ## Architecture
 
-This project follows a modular architecture with separate frontend, backend, and model logic.
+- **Frontend:** React.js, Tailwind CSS, Chart.js, Axios, Google Maps API
+- **Backend:** Flask, Python, pandas, scikit-learn
+- **ML Model:** Linear regression using scikit-learn
+- **Data Source:** Mocked resale data in CSV format (loaded server-side)
+- **Design Patterns:** MVC (Model-View-Controller), Observer, Factory, Facade
 
-- **Frontend:** React with components for town selection, data visualization, and insight display.
-- **Backend:** Python with Flask, exposing REST endpoints for data and predictions.
-- **Machine Learning Model:** Logistic regression implemented with scikit-learn.
-- **Data Source:** A mock CSV dataset containing average resale prices from 2000 to 2023.
+---
 
 ## Directory Structure
 
 ```
 hdb-resale-visualiser/
 │
-├── frontend/            # React app
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       └── api/
+├── frontend/
+│   ├── src/components/
+│   ├── src/pages/
+│   ├── src/api/
+│   └── ...
 │
-├── backend/             # Flask app
+├── backend/
 │   ├── app.py
 │   ├── ml_logic.py
-│   └── data/
-│       └── resale_data.csv
+│   └── data/resale_data.csv
 │
-└── model/               # Jupyter notebooks for training
+└── model/
+    └── train_model.ipynb
 ```
 
-## Technologies Used
+---
 
-**Frontend**
+## Key Modules
 
-- React.js
-- Tailwind CSS
-- Chart.js
-- Axios
+### Search
 
-**Backend**
+- Search by district name (e.g., “Woodlands”) or year (e.g., “2019”)
+- Input validation ensures one or both fields are filled
 
-- Python
-- Flask
-- scikit-learn
-- pandas
+### Price Comparison
 
-**Other**
+- Users select up to 5 districts and time range
+- Switch between graph and table view
+- History saved in browser localStorage
 
-- Google Maps API (optional)
-- CSV file for mock data
+### Interactive Map
 
-## Future Improvements
+- Google Maps API used to render visual district selection
+- Two modes: compare same room type across districts, or different room types within one district
+- Markers toggle selection with color changes
 
-- Replace mock data with live HDB resale data from official APIs.
-- Add filtering by flat type, year range, and town.
-- Include additional ML models (e.g. ARIMA, XGBoost).
-- Enable user accounts and allow saving of selected towns or predictions.
+### AI Insights
+
+- Uses scikit-learn linear regression model
+- Projects resale price based on historical trend
+- Users select districts to get trendline + 2029 forecast + recommendation (buy/wait)
+
+### Authentication
+
+- Users can sign up and login securely
+- Password reset via email (demo mode)
+- Guest mode allows access without account
+- Navbar updates dynamically based on login state
+
+---
+
+## Testing
+
+- Manual user flow tests for login, search, and comparison features
+- Data consistency checks for CSV parsing and visual rendering
+- UI responsiveness tested on multiple screen sizes
+- Model outputs verified against known historical data
+
+---
+
+## Software Engineering Practices
+
+- Modular React components
+- RESTful API design with Flask
+- GitHub branches for feature development
+- SCRUM-inspired workflow with 3 sprints:
+  - Sprint 1: Backend and search
+  - Sprint 2: Visualisation and ML
+  - Sprint 3: Integration and testing
+- Applied SOLID principles:
+  - Single Responsibility (component separation)
+  - Open/Closed (e.g., new filters can be added without rewriting core)
+  - Dependency Inversion (frontend only calls APIs)
+- Design Patterns:
+  - MVC, Observer (for graph/map responsiveness), Factory
+
+---
+
+## Limitations & Future Work
+
+- Current dataset is incomplete; real-time API integration is planned
+- The ML model is simple; future versions may use time-series forecasting or XGBoost
+- Logged-in users currently have limited personalisation; future versions may support saved searches, notifications, or recommendations
+
+---
 
 ## Team
 
-This project was completed as part of NTU's SC2006 Software Engineering module.
-
 | Name         | Role                  | GitHub       |
 |--------------|------------------------|--------------|
-| Chaewon Kim  | Full-stack developer   | [junooou](https://github.com/junooou) |
-| [Name]       | Machine Learning       | [GitHub]     |
-| [Name]       | Frontend               | [GitHub]     |
+| Chaewon Kim  | Full-stack Developer   | [junooou](https://github.com/junooou) |
+| (Teammate 1) | Backend / Flask API    | [username]   |
+| (Teammate 2) | Frontend UI / React    | [username]   |
+| (Teammate 3) | ML / Data Integration  | [username]   |
+
+---
+
+## License
+
+This project was developed as part of an academic module and is for educational use only.
+
