@@ -24,8 +24,8 @@ The application is designed to make government housing data more accessible thro
 
 ## Demo Video
 
-Watch our 3-minute walkthrough here:  
-[https://your-youtube-demo-link.com](https://your-youtube-demo-link.com)
+Watch our 6-minute walkthrough here:  
+[https://your-youtube-demo-link.com](https://youtu.be/6dS3is9w9no)
 
 ---
 
@@ -165,21 +165,3 @@ hdb-resale-visualiser/
 - Current dataset is incomplete; real-time API integration is planned
 - The ML model is simple; future versions may use time-series forecasting or XGBoost
 - Logged-in users currently have limited personalisation; future versions may support saved searches, notifications, or recommendations
-
----
-
-## Team
-
-| Name         | Role                  | GitHub       |
-|--------------|------------------------|--------------|
-| Chaewon Kim  | Full-stack Developer   | [junooou](https://github.com/junooou) |
-| (Teammate 1) | Backend / Flask API    | [username]   |
-| (Teammate 2) | Frontend UI / React    | [username]   |
-| (Teammate 3) | ML / Data Integration  | [username]   |
-
----
-
-## License
-
-This project was developed as part of an academic module and is for educational use only.
-
